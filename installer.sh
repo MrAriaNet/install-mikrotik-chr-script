@@ -25,12 +25,11 @@ cat > /mnt/rw/autorun.scr <<EOF
 /ip route add gateway=$GATEWAY
 /ip route add gateway=$NETWORK.1
 
-/system package update 
-set channel=long-term
-check-for-updates
-download
+/system package update check-for-updates
+:delay 30s
+/system package update download
+:delay 90s
 /system reboot
-y
 EOF
 
 
