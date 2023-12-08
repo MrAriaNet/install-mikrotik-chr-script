@@ -15,7 +15,7 @@ ADDRESS=$(ip addr show $INTERFACE | grep global | cut -d' ' -f 6 | head -n 1)
 GATEWAY=$(ip route list | grep default | cut -d' ' -f 3)
 
 # Determining the primary disk device
-DISK_DEVICE=$(fdisk -l | grep "^Disk /dev" | grep -v "^Disk /dev/loop" | cut -d' ' -f2 | tr -d ':')
+DISK_DEVICE=$(fdisk -l | grep "^Disk /dev")
 
 # Creating the autorun script with MikroTik commands
 cat > /mnt/rw/autorun.scr <<EOF
