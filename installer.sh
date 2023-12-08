@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Downloading the MikroTik image
-wget https://download.mikrotik.com/routeros/7.11.2/chr-7.11.2.img.zip -O chr.img.zip
+wget https://download.mikrotik.com/routeros/7.12.1/chr-7.12.1.img.zip -O chr.img.zip
 
 # Unzipping the image
 gunzip -c chr.img.zip > chr.img
@@ -15,7 +15,7 @@ ADDRESS=$(ip addr show $INTERFACE | grep global | cut -d' ' -f 6 | head -n 1)
 GATEWAY=$(ip route list | grep default | cut -d' ' -f 3)
 
 # Determining the primary disk device
-DISK_DEVICE=$(fdisk -l | grep "^Disk /dev")
+DISK_DEVICE=$(lsblk | grep disk | cut -d ' ' -f 1 | head -n 1)
 
 # Creating the autorun script with MikroTik commands
 cat > /mnt/rw/autorun.scr <<EOF
@@ -31,7 +31,7 @@ umount /mnt
 echo u > /proc/sysrq-trigger
 
 # Writing the image to the primary disk device
-dd if=chr.img bs=1024 of=$DISK_DEVICE
+dd if=chr.img of=/dev/$DISK_DEVICE bs=4M oflag=sync
 
 # Syncing file system
 echo s > /proc/sysrq-trigger
