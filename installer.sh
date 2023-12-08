@@ -26,7 +26,7 @@ cat > /mnt/rw/autorun.scr <<EOF
 /system package update 
 set channel=long-term
 check-for-updates
-:log info ("\$[get status]")
+:log info "\$[get status]"
 :if (installed-version != latest-version) do={
     download;
 }
