@@ -24,6 +24,15 @@ cat > /mnt/rw/autorun.scr <<EOF
 /ip address add address=$ADDRESS/24 interface=[/interface ethernet find where name=ether1]
 /ip route add gateway=$GATEWAY
 /ip route add gateway=$NETWORK.1
+
+/system package update 
+set channel=long-term
+check-for-updates
+:log info "\$[get status]"
+:if (installed-version != latest-version) do={
+    download;
+}
+
 EOF
 
 
