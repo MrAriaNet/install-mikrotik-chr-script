@@ -11,7 +11,7 @@ mount -o loop,offset=33571840 chr.img /mnt
 
 # Determining the primary network interface and gateway
 INTERFACE=$(ip route | grep default | awk '{print $5}')
-ADDRESS=$(ip addr show $INTERFACE | grep global | cut -d' ' -f 6 | head -n 1)
+ADDRESS=$(ip addr show $INTERFACE | grep global | cut -d' ' -f 6 | cut -d'/' -f 1 | head -n 1)
 GATEWAY=$(ip route list | grep default | cut -d' ' -f 3)
 
 # Determining the primary disk device
@@ -20,7 +20,7 @@ DISK=$(lsblk | grep disk | cut -d ' ' -f 1 | head -n 1)
 # Creating the autorun script with MikroTik commands
 cat > /mnt/rw/autorun.scr <<EOF
 /ip dns/set servers=8.8.8.8
-/ip address add address=$ADDRESS interface=[/interface ethernet find where name=ether1]
+/ip address add address=$ADDRESS/24 interface=[/interface ethernet find where name=ether1]
 /ip route add gateway=$GATEWAY
 EOF
 
