@@ -20,8 +20,8 @@ DISK=$(lsblk | grep disk | cut -d ' ' -f 1 | head -n 1)
 # Creating the autorun script with MikroTik commands
 cat > /mnt/rw/autorun.scr <<EOF
 /ip dns/set servers=8.8.8.8
-/ip address add address=\$ADDRESS interface=[/interface ethernet find where name=ether1]
-/ip route add gateway=\$GATEWAY
+/ip address add address=$ADDRESS interface=[/interface ethernet find where name=ether1]
+/ip route add gateway=$GATEWAY
 EOF
 
 
