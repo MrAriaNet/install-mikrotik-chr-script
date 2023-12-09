@@ -20,15 +20,24 @@ DISK=$(lsblk | grep disk | cut -d ' ' -f 1 | head -n 1)
 
 # Creating the autorun script with MikroTik commands
 cat > /mnt/rw/autorun.scr <<EOF
+:put "start"
 /ip dns/set servers=8.8.8.8
+:put "dns set"
 /ip address add address=$ADDRESS/24 interface=[/interface ethernet find where name=ether1]
+:put "address set"
 /ip route add gateway=$GATEWAY
+:put "1 gate set"
 /ip route add gateway=$NETWORK.1
+:put "2 gate set, 30 sec d"
 
+:deley 30s
 /system package update check-for-updates
+:put "check done, 30 sec d"
 :delay 30s
 /system package update download
+:put "down done, 90s d"
 :delay 90s
+:put "gonna reboot"
 /system reboot
 EOF
 
