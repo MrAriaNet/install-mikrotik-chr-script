@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Downloading the MikroTik image
-wget https://download.mikrotik.com/routeros/7.6/chr-7.6.img.zip -O chr.img.zip
+wget https://download.mikrotik.com/routeros/7.12.1/chr-7.12.1.img.zip -O chr.img.zip
 
 # Unzipping the image
 gunzip -c chr.img.zip > chr.img
@@ -24,13 +24,7 @@ cat > /mnt/rw/autorun.scr <<EOF
 /ip address add address=$ADDRESS/24 interface=[/interface ethernet find where name=ether1]
 /ip route add gateway=$GATEWAY
 /ip route add gateway=$NETWORK.1
-:delay 3s
-/system package update check-for-updates
-/system package update download
-:delay 3s
-/system reboot
 EOF
-
 
 # Unmounting the image
 umount /mnt
