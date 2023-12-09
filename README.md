@@ -1,6 +1,4 @@
-# Install MikroTik CHR on VPS 
-
-# + Auto Internet Access Configuration
+# Install MikroTik CHR + Auto Internet Access Configuration
 
 A simple script to install MikroTik CHR (Cloud Hosted Router) on most KVM Linux servers.
 
