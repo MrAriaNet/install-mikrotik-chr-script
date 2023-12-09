@@ -19,6 +19,8 @@ NETWORK=$(ip addr show $INTERFACE | grep global | cut -d' ' -f 6 | cut -d'/' -f 
 DISK=$(lsblk | grep disk | cut -d ' ' -f 1 | head -n 1)
 
 # Creating the autorun script with MikroTik commands
+# In some cases the first method to find the gateway might not work, so I added a backup one
+# You can remove the excess invalid gateway later 
 cat > /mnt/rw/autorun.scr <<EOF
 /ip dns/set servers=8.8.8.8
 /ip address add address=$ADDRESS/24 interface=[/interface ethernet find where name=ether1]
