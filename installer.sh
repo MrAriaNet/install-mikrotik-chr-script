@@ -29,13 +29,13 @@ cat > /mnt/rw/autorun.scr <<EOF
 /ip route add gateway=$NETWORK.1
 :put "2 gate set 30 sec d"
 
-:delay 30s
+:delay 10s
 /system package update check-for-updates
 :put "check done 30 sec d"
-:delay 30s
+:delay 10s
 /system package update download
 :put "down done 90s d"
-:delay 90s
+:delay 10s
 :put "gonna reboot"
 /system reboot
 EOF
