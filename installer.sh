@@ -9,12 +9,6 @@ gunzip -c chr.img.zip > chr.img
 # Mounting the image
 mount -o loop,offset=33571840 chr.img /mnt
 
-# Determining the primary network interface and gateway
-INTERFACE=$(ip route | grep default | awk '{print $5}')
-ADDRESS=$(ip addr show $INTERFACE | grep global | cut -d' ' -f 6 | cut -d'/' -f 1 | head -n 1)
-GATEWAY=$(ip route list | grep default | cut -d' ' -f 3)
-NETWORK=$(ip addr show $INTERFACE | grep global | cut -d' ' -f 6 | cut -d'/' -f 1 | cut -d '.' -f1-3 | head -n 1)
-
 # Determining the primary disk device
 DISK=$(lsblk | grep disk | cut -d ' ' -f 1 | head -n 1)
 
@@ -22,10 +16,11 @@ DISK=$(lsblk | grep disk | cut -d ' ' -f 1 | head -n 1)
 # In some cases the first method to find the gateway might not work, so I added a backup one
 # You can remove the excess invalid gateway later 
 cat > /mnt/rw/autorun.scr <<EOF
-/ip dns/set servers=8.8.8.8
-/ip address add address=$ADDRESS/24 interface=[/interface ethernet find where name=ether1]
-/ip route add gateway=$GATEWAY
-/ip route add gateway=$NETWORK.1
+/ip dhcp-client/add add-default-route=yes use-peer-dns=yes use-peer-ntp=yes interface=ether0 dhcp-options=hostname,clientid
+/ip dhcp-client/add add-default-route=yes use-peer-dns=yes use-peer-ntp=yes interface=ether1 dhcp-options=hostname,clientid
+/ip dhcp-client/add add-default-route=yes use-peer-dns=yes use-peer-ntp=yes interface=ether2 dhcp-options=hostname,clientid
+/ip dhcp-client/add add-default-route=yes use-peer-dns=yes use-peer-ntp=yes interface=ether3 dhcp-options=hostname,clientid
+/ip dhcp-client/add add-default-route=yes use-peer-dns=yes use-peer-ntp=yes interface=ether4 dhcp-options=hostname,clientid
 EOF
 
 # Unmounting the image
