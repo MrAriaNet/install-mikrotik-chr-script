@@ -2,7 +2,7 @@
 
 A simple script to install MikroTik CHR (Cloud Hosted Router) on most KVM Linux servers.
 
-This script also tries to connect CHR to the internet by automatically adding the IP address and gateway.
+This script also uses provider's DHCP to connect CHR to the internet by automatically adding the IP address and gateway.
 
 ## Installation
 
