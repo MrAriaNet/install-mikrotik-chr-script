@@ -7,5 +7,5 @@ This script also uses provider's DHCP to connect CHR to the internet by automati
 ## Installation
 
 ```bash
-  sudo bash -c "$(curl -L https://raw.githubusercontent.com/parhamfa/install-mikrotik-chr-script/main/installer.sh)"
+  sudo bash -c "$(curl -L https://raw.githubusercontent.com/MrAriaNet/install-mikrotik-chr-script/main/installer.sh)"
 ```
