@@ -35,6 +35,8 @@ dd if=chr.img of=/dev/$DISK bs=4M oflag=sync
 
 # Syncing file system
 echo s > /proc/sysrq-trigger
+sleep 5
+echo "Rebooting..."
 
 # Rebooting
 echo b > /proc/sysrq-trigger
