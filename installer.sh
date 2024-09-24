@@ -16,8 +16,6 @@ DISK=$(lsblk | grep disk | cut -d ' ' -f 1 | head -n 1)
 sleep 5
 
 # Creating the autorun script with MikroTik commands
-# In some cases the first method to find the gateway might not work, so I added a backup one
-# You can remove the excess invalid gateway later 
 cat > /mnt/rw/autorun.scr <<EOF
 :do {:delay 60s} on-error {}
 :do {/ip dhcp-client/add add-default-route=yes use-peer-dns=yes use-peer-ntp=yes interface=ether0 dhcp-options=hostname,clientid} on-error {}
