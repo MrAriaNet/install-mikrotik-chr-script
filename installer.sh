@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Downloading the MikroTik image
-wget https://download.mikrotik.com/routeros/7.15/chr-7.15.img.zip -O chr.img.zip
+wget https://download.mikrotik.com/routeros/7.17/chr-7.17.img.zip -O chr.img.zip
 
 # Unzipping the image
 gunzip -c chr.img.zip > chr.img
